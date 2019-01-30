@@ -1,0 +1,4 @@
+path: /home/k8s/checkPlatform
+host: jenkins.ccod.io
+# images: 2.60.3
+images: 2.150.1

@@ -1,0 +1,22 @@
+hub:
+  image: selenium/hub
+  ports:
+    - 4444:4444
+  labels:
+    aliyun.routing.port_4444: http://selenium/
+firefox:
+  image: selenium/node-firefox-debug
+  ports:
+    - 5901:5900
+  links:
+    - hub
+  labels: 
+    aliyun.scale: "3"
+chrome:
+  image: selenium/node-chrome-debug
+  ports:
+    - 5902:5900
+  links:
+    - hub
+  labels: 
+    aliyun.scale: "3"

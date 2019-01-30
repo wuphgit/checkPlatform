@@ -1,0 +1,26 @@
+#!/bin/bash
+echo "-----开始调用jenkins.ccod.io的job-----"
+echo "该job功能简绍"
+echo "1.使用maven打包"
+echo "2.制作docker镜像"
+
+jenkinsPath=http://jenkins.ccod.io
+jobName=P-t1
+jobToken=1234567890
+mod=ucxserver
+REVISION=""
+
+while read old new ref
+do
+    echo "旧版本：", $old
+    echo "新版本：", $new
+    REVISION=$new
+    echo "分支：", $ref
+done
+
+echo "开始调用jenkins的job"
+echo "调用命令：$jenkinsPath/job/$jobName/buildWithParameters?token=$jobToken&REVISION=$REVISION&mod=$mod"
+curl $jenkinsPath/job/$jobName/buildWithParameters?token\=$jobToken\&REVISION\=$REVISION\&mod\=$mod
+echo "调用结束。。。"
+echo "查看构建结果展示：$jenkinsPath/job/$jobName"
+

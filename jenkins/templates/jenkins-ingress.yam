@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+    namespace: {{ .Release.Namespace }}
+    name: jenkins
+spec:
+    rules:
+    -   host: {{ .Values.host }}
+        http:
+            paths:
+            -   backend:
+                    serviceName: jenkins
+                    servicePort: 80
+                path: /

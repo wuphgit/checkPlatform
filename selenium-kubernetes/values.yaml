@@ -1,0 +1,10 @@
+host: selenium.ccod.io
+hub:
+    image: selenium/hub
+    version: latest
+chrome:
+    image: selenium/node-chrome-debug
+    version: latest
+firefox:
+    image: selenium/node-firefox-debug
+    version: latest

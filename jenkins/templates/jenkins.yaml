@@ -1,0 +1,50 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: jenkins
+    namespace: {{ .Release.Namespace }}
+    labels:
+        name: jenkins
+spec:
+    strategy:
+        type: Recreate
+    replicas: 1
+    revisionHistoryLimit: 5
+    selector:
+        matchLabels:
+            name: jenkins
+    template:
+        metadata:
+            labels:
+                name: jenkins
+        spec:
+            terminationGracePeriodSeconds: 0
+            volumes:
+            -   name: data
+                hostPath:
+                    path: /{{ .Values.path}}/data-{{ .Values.images }}
+            -   name: docker-sock
+                hostPath:
+                    path: /var/run/docker.sock
+            -   name: docker
+                hostPath:
+                    path: /usr/bin/docker
+            -   name: lib
+                hostPath:
+                    path: /usr/lib64/libltdl.so.7
+            containers:
+            -   name: jenkins
+                imagePullPolicy: Always
+                image: jenkins/jenkins:{{ .Values.images }}
+                ports:
+                -   containerPort: 8080
+                -   containerPort: 50000
+                volumeMounts:
+                -   mountPath: /var/run/docker.sock
+                    name: docker-sock
+                -   mountPath: /usr/bin/docker
+                    name: docker
+                -   mountPath: /usr/lib/x86_64-linux-gnu/libltdl.so.7
+                    name: lib
+                -   mountPath: /var/jenkins_home
+                    name: data
