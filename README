@@ -1,0 +1,18 @@
+# checkPlatform
+devops项目
+
+git/hook/post-receive
+一个Git的post-receive hook。可以获得本次提交的信息，并远程调用jenkins的job
+
+jenkins/
+一个jenkins的kubernetes使用的yaml文件
+
+selenium-compose/
+一个selenium的compose使用的yaml文件。
+构建selenium/hub，node-firefox-debug，node-chrome-debug镜像
+
+selenium-kubernetes/
+一个selenium的kubernetes使用的yaml文件。
+暂时不可用。
+设置selenium/hub为initContainers，但是firefox和chrome不能启动。
+
